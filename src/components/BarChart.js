@@ -12,6 +12,7 @@ function BarChart(props){
     const d3Selection = useRef();
         
         useEffect(()=>{
+            console.log(data)
             const svg = d3.select(d3Selection.current);
             let width = svgWidth - marginLeft ;
             let height = svgHeight - marginTop-120;
@@ -23,11 +24,11 @@ function BarChart(props){
             d3.selectAll('.bar').remove(); //remove all the bars before drawing the new bars
             d3.selectAll('.x-axis-label').remove();//remove all the x-axis labels before drawing the new labels
             
-            let barChart = svg.append("g")
+            let barChart = svg.append("g") //gounping SVG
             .attr("transform", "translate(" + marginLeft + "," + marginTop +")");
 
-
-            barChart.append('g')
+ 
+            barChart.append('g')    //x-axis
             .attr("transform", "translate(" +0+ "," + height +")")
             .attr('class', 'x-axis')
             .call(xAxis_bar)
@@ -38,7 +39,7 @@ function BarChart(props){
             .attr('dy', '.015em')
             .attr('transform', 'rotate(-65)'); //rotate the text elements
 
-            barChart.append('g')
+            barChart.append('g')    //y-axis
             .attr('class', 'y-axis')
             .call(yAxis_bar);
             barChart.append("g")

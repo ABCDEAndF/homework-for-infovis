@@ -18,7 +18,7 @@ export default function ScatterPlot(props){
             const xAxis_spl = d3.axisBottom(xScale).ticks(10);
             //Task 2. create the y-axis
             //Hint: use the code for the x-axis as a reference
-            const yAxis_spl = d3.axisLeft(yScale).ticks(10); 
+            const yAxis_spl = d3.axisLeft(yScale).ticks(10)
 
             let tooltip = d3.select("body").append("div")
                         .attr("class", "tooltip")
@@ -47,17 +47,23 @@ export default function ScatterPlot(props){
             //Hint: 
             // 1. use the code for the x-axis and x-axis label as a reference
             // 2.the y-axis label should be rotated by -90 degrees; use the rotate(-90) attribute
-            spl.append('g') 
-            .attr('class', 'y-axis')
-            .call(yAxis_spl); 
 
-            spl.append("g")
-            .attr("transform", `translate(${20}, ${height / 2})`) 
+            // 那就是.attr的transfrom里要加一个(rotate(-90))了
+
+            spl.append('g') //create a group element to hold the y-axis
+            .attr('transform', `translate(0,0)`)
+            .attr('class', 'y-axis')
+            .attr('rotate', -90)
+            .call(yAxis_spl); //运行yAxis_spl来生成
+
+            spl.append("g") //create a group element to hold the y-axis label
+            .attr("transform", `translate( ${marginLeft}, 80) rotate(-90)`)
             .append("text")
             .style("text-anchor", "middle")
-            .attr("transform", "rotate(-90)") 
-            .text("Trip duration (minutes)"); 
-           
+            .text("Trip duration end in");
+            // console.log(height-30,marginTop)
+
+
             drawScatterPlot(spl, data, xScale, yScale, tooltip, width-20, height-20);
 
     }, [data]) //re-render the chart when the data changes
